@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ph83i1asaklo"]
+
+[ext_resource type="Script" path="res://scripts/trash.gd" id="1_cgnvp"]
+[ext_resource type="Texture2D" uid="uid://do7qd6yf1qh48" path="res://icon.svg" id="2_e7qqu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2y6so"]
+radius = 90.0
+
+[node name="trash" type="Node2D"]
+script = ExtResource("1_cgnvp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_e7qqu")
+
+[node name="PickUpArea" type="Area2D" parent="."]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpArea"]
+shape = SubResource("CircleShape2D_2y6so")
