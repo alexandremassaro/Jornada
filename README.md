@@ -24,12 +24,10 @@ Instruções para quem for contribuir para o projeto:
 
 - Alexandre Cesar Massaro
 - Alexandre Gabriel
-- Alícia
+- Alícia Pombani Luz Guariento
 
 ## Licença
 
 Este projeto está licenciado sob a GPL v3.0 - veja o arquivo [LICENSE.txt](LICENSE.txt) para detalhes.
 
-## Agradecimentos
 
--
