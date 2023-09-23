@@ -1,19 +1,24 @@
 [gd_scene load_steps=4 format=3 uid="uid://ph83i1asaklo"]
 
 [ext_resource type="Script" path="res://scripts/trash.gd" id="1_cgnvp"]
-[ext_resource type="Texture2D" uid="uid://do7qd6yf1qh48" path="res://icon.svg" id="2_e7qqu"]
+[ext_resource type="Texture2D" uid="uid://c3r7q5l175vmb" path="res://assets/images/sprites/basic_grass_biom_thing.png" id="2_onvr7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2y6so"]
-radius = 90.0
+radius = 6.0
 
 [node name="trash" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_cgnvp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_e7qqu")
+texture = ExtResource("2_onvr7")
+hframes = 9
+vframes = 5
+frame = 17
 
 [node name="PickUpArea" type="Area2D" parent="."]
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpArea"]
+y_sort_enabled = true
 shape = SubResource("CircleShape2D_2y6so")

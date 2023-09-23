@@ -1,44 +1,51 @@
 extends CharacterBody2D
 
-@export var move_speed = 200
-
-@onready var direction_line = $AimLine
+@export var move_speed : float = 50.0
 
 var carying : Trash = null
 var items_in_range = []
 
+@export var starting_direction : Vector2 = Vector2(0, 1)
+
+@onready var animation_tree = $AnimationTree
+@onready var state_machine = animation_tree["parameters/playback"]
+
 
 func _ready():
-	direction_line.default_color = Color.GREEN
-	direction_line.width = 5.0
+	animation_tree.set("parameters/Idle/blend_position", starting_direction)
 
 
 func _input(event):
 	if event.is_action_released("pick_up_item"):
-		pick_up()
+		drop_item()
+		pick_up_item()
 
 
 func _physics_process(_delta):
 	velocity = Vector2.ZERO
 	
-	var direction = Vector2(
+	var input_direction = Vector2(
 		Input.get_action_strength("right") - Input.get_action_strength("left"),
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 		).normalized()
 	
-	velocity = move_speed * direction 
+	update_animation_parameters(input_direction)
+	change_pick_up_position(input_direction)
+	
+	# Update velocity
+	velocity = input_direction * move_speed
+	
+	pick_new_state()
 		
 	move_and_slide()
 	
 	if carying:
 		carying.global_position = $PickUpPosition.global_position
-	
-	look_at(get_global_mouse_position())
 
 
 func _on_pick_up_area_area_entered(area):
 	items_in_range.append(area.get_parent())
-	print(items_in_range.size())
+	# print(items_in_range.size())
 
 
 func _on_pick_up_area_area_exited(area):
@@ -47,10 +54,10 @@ func _on_pick_up_area_area_exited(area):
 	if item_index != -1:
 		items_in_range.remove_at(item_index)
 	
-	print(items_in_range.size())
+	# print(items_in_range.size())
 
 
-func pick_up():
+func pick_up_item():
 	for item in items_in_range:
 		carying = item
 		break
@@ -58,3 +65,24 @@ func pick_up():
 	if carying:
 		items_in_range.remove_at(items_in_range.find(carying))
 
+
+func drop_item():
+	carying = null
+
+
+func update_animation_parameters(move_input : Vector2):
+	# Don't update if there ir no user input
+	if not move_input == Vector2.ZERO: 
+		animation_tree.set("parameters/walk/blend_position", move_input)
+		animation_tree.set("parameters/idle/blend_position", move_input)
+
+
+func pick_new_state():
+	if not velocity == Vector2.ZERO:
+		state_machine.travel("walk")
+	else:
+		state_machine.travel("idle")
+
+
+func change_pick_up_position(pos : Vector2):
+	$PickUpPosition.position = pos * 10
