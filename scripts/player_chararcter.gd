@@ -29,8 +29,9 @@ func _physics_process(_delta):
 		Input.get_action_strength("down") - Input.get_action_strength("up")
 		).normalized()
 	
-	update_animation_parameters(input_direction)
-	change_pick_up_position(input_direction)
+	if input_direction != Vector2.ZERO:
+		update_animation_parameters(input_direction)
+		change_pick_up_position(input_direction)
 	
 	# Update velocity
 	velocity = input_direction * move_speed
@@ -44,8 +45,9 @@ func _physics_process(_delta):
 
 
 func _on_pick_up_area_area_entered(area):
-	items_in_range.append(area.get_parent())
-	# print(items_in_range.size())
+	var item  = area.get_parent()
+	if item is Trash:
+		items_in_range.append(area.get_parent())
 
 
 func _on_pick_up_area_area_exited(area):
@@ -71,7 +73,7 @@ func drop_item():
 
 
 func update_animation_parameters(move_input : Vector2):
-	# Don't update if there ir no user input
+	# Don't update if there is no user input
 	if not move_input == Vector2.ZERO: 
 		animation_tree.set("parameters/walk/blend_position", move_input)
 		animation_tree.set("parameters/idle/blend_position", move_input)

@@ -1,12 +1,73 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2mpcytt5rvv8"]
+[gd_scene load_steps=9 format=3 uid="uid://d2mpcytt5rvv8"]
 
 [ext_resource type="Texture2D" uid="uid://lvja837dewv7" path="res://assets/images/sprites/lixo.png" id="1_gi7gp"]
+[ext_resource type="Script" path="res://scripts/cacamba.gd" id="1_nmf15"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_unr8k"]
 size = Vector2(28, 13)
 
+[sub_resource type="Animation" id="Animation_g3phy"]
+resource_name = "open"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_8rxss"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pmewd"]
+resource_name = "close"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [2, 1, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7frt5"]
+_data = {
+"RESET": SubResource("Animation_8rxss"),
+"close": SubResource("Animation_pmewd"),
+"open": SubResource("Animation_g3phy")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bc03y"]
+radius = 22.0227
+
 [node name="cacamba" type="StaticBody2D"]
+z_index = 1
 y_sort_enabled = true
+input_pickable = true
+script = ExtResource("1_nmf15")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_gi7gp")
@@ -15,3 +76,16 @@ vframes = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_unr8k")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7frt5")
+}
+
+[node name="OpenCloseArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OpenCloseArea"]
+shape = SubResource("CircleShape2D_bc03y")
+
+[connection signal="body_entered" from="OpenCloseArea" to="." method="_on_open_close_area_body_entered"]
+[connection signal="body_exited" from="OpenCloseArea" to="." method="_on_open_close_area_body_exited"]
