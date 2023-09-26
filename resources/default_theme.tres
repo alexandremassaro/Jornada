@@ -1,0 +1,19 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://derjom2jih82r"]
+
+[ext_resource type="Texture2D" uid="uid://if4pv0lidrr5" path="res://assets/images/sprites/menu_bg.png" id="1_muytm"]
+[ext_resource type="FontFile" uid="uid://bqnrxuu7neskc" path="res://assets/fonts/press_start_2p/PressStart2P-Regular.ttf" id="1_qcerf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mkhhe"]
+texture = ExtResource("1_muytm")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 6.0
+
+[resource]
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("1_qcerf")
+MarginContainer/constants/margin_left = 5
+MarginContainer/constants/margin_right = 5
+MarginContainer/constants/margin_top = 5
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_mkhhe")

@@ -37,4 +37,8 @@ Instruções para quem for contribuir para o projeto:
 
 Este projeto está licenciado sob a GPL v3.0 - veja o arquivo [LICENSE.txt](LICENSE.txt) para detalhes.
 
+## Agradecimentos
+
+O pacote de artes principal (sprites e tilesets) foi feito por [Cup Nooble](https://cupnooble.itch.io/). 
+Disponível em [https://cupnooble.itch.io/sprout-lands-asset-pack](https://cupnooble.itch.io/sprout-lands-asset-pack).
 

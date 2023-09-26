@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cmwmvvo6fidr0"]
+[gd_scene load_steps=19 format=3 uid="uid://cmwmvvo6fidr0"]
 
 [ext_resource type="PackedScene" uid="uid://ccfk85lo0vkbl" path="res://scenes/player_chararcter.tscn" id="1_7hfyj"]
 [ext_resource type="Texture2D" uid="uid://c1wjxqx35mli3" path="res://assets/images/tilesets/grass.png" id="1_vgb15"]
@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dfjpr5r20eqvh" path="res://assets/images/tilesets/wooden_house.png" id="5_yjmll"]
 [ext_resource type="Texture2D" uid="uid://dmr7pj27jpnhd" path="res://assets/images/tilesets/water.png" id="6_3d7i6"]
 [ext_resource type="PackedScene" uid="uid://d2mpcytt5rvv8" path="res://scenes/cacamba.tscn" id="9_11iyp"]
+[ext_resource type="Theme" uid="uid://derjom2jih82r" path="res://resources/default_theme.tres" id="10_dgsxl"]
+[ext_resource type="Texture2D" uid="uid://81dhe50y0eg" path="res://assets/images/sprites/hourglass_16x16.png" id="11_bied1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gonwo"]
 texture = ExtResource("1_vgb15")
@@ -737,3 +739,32 @@ scale = Vector2(0.5, 0.5)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="player_chararcter"]
 remote_path = NodePath("../../Camera2D")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 10.0
+grow_horizontal = 2
+theme = ExtResource("10_dgsxl")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/PanelContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("11_bied1")
+expand_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 2
