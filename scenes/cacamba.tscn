@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://d2mpcytt5rvv8"]
+[gd_scene load_steps=10 format=3 uid="uid://d2mpcytt5rvv8"]
 
 [ext_resource type="Texture2D" uid="uid://lvja837dewv7" path="res://assets/images/sprites/lixo.png" id="1_gi7gp"]
 [ext_resource type="Script" path="res://scripts/cacamba.gd" id="1_nmf15"]
+[ext_resource type="PackedScene" uid="uid://c12qxnrourq3n" path="res://scenes/interactive_area.tscn" id="3_hjjcp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_unr8k"]
 size = Vector2(28, 13)
@@ -60,12 +61,13 @@ _data = {
 "open": SubResource("Animation_g3phy")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bc03y"]
-radius = 22.0227
+[sub_resource type="CircleShape2D" id="CircleShape2D_aikgw"]
+radius = 26.0192
 
 [node name="cacamba" type="StaticBody2D"]
 z_index = 1
 y_sort_enabled = true
+collision_layer = 4
 input_pickable = true
 script = ExtResource("1_nmf15")
 
@@ -82,10 +84,11 @@ libraries = {
 "": SubResource("AnimationLibrary_7frt5")
 }
 
-[node name="OpenCloseArea" type="Area2D" parent="."]
+[node name="InteractiveArea" parent="." instance=ExtResource("3_hjjcp")]
+action_name = "Depositar lixo"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OpenCloseArea"]
-shape = SubResource("CircleShape2D_bc03y")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractiveArea"]
+shape = SubResource("CircleShape2D_aikgw")
 
-[connection signal="body_entered" from="OpenCloseArea" to="." method="_on_open_close_area_body_entered"]
-[connection signal="body_exited" from="OpenCloseArea" to="." method="_on_open_close_area_body_exited"]
+[connection signal="body_entered" from="InteractiveArea" to="." method="_on_interactive_area_body_entered"]
+[connection signal="body_exited" from="InteractiveArea" to="." method="_on_interactive_area_body_exited"]

@@ -239,6 +239,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 [node name="player_chararcter" type="CharacterBody2D" groups=["player"]]
 z_index = 1
 y_sort_enabled = true
+collision_mask = 7
 script = ExtResource("1_smuk1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -272,5 +273,4 @@ active = true
 parameters/idle/blend_position = Vector2(0, -1)
 parameters/walk/blend_position = Vector2(0, -1)
 
-[connection signal="area_entered" from="PickUpArea" to="." method="_on_pick_up_area_area_entered"]
-[connection signal="area_exited" from="PickUpArea" to="." method="_on_pick_up_area_area_exited"]
+[node name="PickUpSpot" type="RemoteTransform2D" parent="."]

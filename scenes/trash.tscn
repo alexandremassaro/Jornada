@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ph83i1asaklo"]
+[gd_scene load_steps=5 format=3 uid="uid://ph83i1asaklo"]
 
 [ext_resource type="Script" path="res://scripts/trash.gd" id="1_cgnvp"]
 [ext_resource type="Texture2D" uid="uid://c3r7q5l175vmb" path="res://assets/images/sprites/basic_grass_biom_thing.png" id="2_onvr7"]
+[ext_resource type="PackedScene" uid="uid://c12qxnrourq3n" path="res://scenes/interactive_area.tscn" id="3_plilw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2y6so"]
 radius = 6.0
@@ -18,8 +19,16 @@ vframes = 5
 frame = 17
 
 [node name="PickUpArea" type="Area2D" parent="."]
+collision_layer = 4
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpArea"]
+y_sort_enabled = true
+shape = SubResource("CircleShape2D_2y6so")
+
+[node name="InteractiveArea" parent="." instance=ExtResource("3_plilw")]
+action_name = "pegar resíduo"
+
+[node name="CollisionShape" type="CollisionShape2D" parent="InteractiveArea"]
 y_sort_enabled = true
 shape = SubResource("CircleShape2D_2y6so")

@@ -11,13 +11,6 @@ extends CharacterBody2D
 ## carregada pela primeira vez.
 @export var starting_direction : Vector2 = Vector2(0, 1)
 
-## O objeto que o personagem principal está segurando.
-## Deve ser do tipo Trash, ou nulo.
-var carying : Trash = null
-
-## Uma lista de todos os items que o personagem pricipal pode agarrar. 
-## FIFO. O personagem vai pegar o primeiro item dessa lista.
-var items_in_range = []
 
 ## Uma referência ao node AnimationTree.
 ## Esse node controla as animações do personagem.
@@ -30,14 +23,6 @@ var items_in_range = []
 
 func _ready():
 	animation_tree.set("parameters/Idle/blend_position", starting_direction)
-
-
-func _input(event):
-	if event.is_action_released("pick_up_item"):
-		if carying:
-			drop_item()
-		else:
-			pick_up_item()
 
 
 func _physics_process(_delta):
@@ -55,35 +40,19 @@ func _physics_process(_delta):
 	
 	pick_new_state()
 	move_and_slide()
-	
-	if carying:
-		carying.global_position = $PickUpPosition.global_position
-
-
-func _on_pick_up_area_area_entered(area):
-	var item  = area.get_parent()
-	if item is Trash:
-		items_in_range.append(area.get_parent())
-
-
-func _on_pick_up_area_area_exited(area):
-	var item_index = items_in_range.find(area.get_parent())
-	
-	if item_index != -1:
-		items_in_range.remove_at(item_index)
 
 
 ## Pega o primeiro item da lista items_in_range.[br]
 ## [color=yellow]Aviso:[/color] Sempre se certifique que a propriedade 'carying'
 ## é null antes de chamar esse método, senão ele nunca conseguirá soltar o item.
-func pick_up_item():
-	if len(items_in_range) > 0:
-		carying = items_in_range[0]
+func pick_up_item(item_path):
+	$PickUpSpot.remote_path = item_path
 
 
 ## Solta o item que está sendo carregado.
 func drop_item():
-	carying = null
+	#carying = null
+	$PickUpSpot.remote_path = ""
 
 ## Atualiza o node AnimationTree para alternar as animações de acordo com a 
 ## direção do movimento e o input do jogador (direita, esquerda, cima e baixo).
@@ -108,3 +77,4 @@ func pick_new_state():
 ## a frente do personagem principal.
 func change_pick_up_position(pos : Vector2):
 	$PickUpPosition.position = pos * 10
+	$PickUpSpot.position = pos * 10

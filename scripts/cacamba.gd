@@ -6,14 +6,23 @@ extends StaticBody2D
 
 ## Uma referência ao node AnimationPlayer.
 @onready var animation_player = $AnimationPlayer
+@onready var interactive_area = $InteractiveArea
 
 
-func _on_open_close_area_body_entered(body):
+func _ready():
+	interactive_area.interact = Callable(self, "on_interact")
+
+
+func on_interact():
+	print("Jogou lixo")
+
+
+func _on_interactive_area_body_entered(body):
 	if body.is_in_group("player"):
 		abrir_tampa()
 
 
-func _on_open_close_area_body_exited(body):
+func _on_interactive_area_body_exited(body):
 	if body.is_in_group("player"):
 		fechar_tampa()
 
