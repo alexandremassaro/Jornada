@@ -1,9 +1,9 @@
 [gd_scene load_steps=24 format=3 uid="uid://cmwmvvo6fidr0"]
 
 [ext_resource type="PackedScene" uid="uid://ccfk85lo0vkbl" path="res://scenes/player_chararcter.tscn" id="1_7hfyj"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_m1uxp"]
 [ext_resource type="Texture2D" uid="uid://c1wjxqx35mli3" path="res://assets/images/tilesets/grass.png" id="1_vgb15"]
 [ext_resource type="Texture2D" uid="uid://tivywnwfevc3" path="res://assets/images/tilesets/hills.png" id="2_b07cn"]
-[ext_resource type="PackedScene" uid="uid://ph83i1asaklo" path="res://scenes/trash.tscn" id="2_jv78e"]
 [ext_resource type="Texture2D" uid="uid://cipwr0vctk3p8" path="res://assets/images/tilesets/tilled_dirt.png" id="3_8jpej"]
 [ext_resource type="Texture2D" uid="uid://curp0y8t3s520" path="res://assets/images/tilesets/fences.png" id="4_gn51d"]
 [ext_resource type="Texture2D" uid="uid://dfjpr5r20eqvh" path="res://assets/images/tilesets/wooden_house.png" id="5_yjmll"]
@@ -924,6 +924,7 @@ sources/8 = SubResource("TileSetAtlasSource_3wwo2")
 
 [node name="Main" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_m1uxp")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -954,14 +955,6 @@ layer_3/y_sort_origin = 0
 layer_3/z_index = 0
 layer_3/tile_data = PackedInt32Array()
 
-[node name="trash" parent="." instance=ExtResource("2_jv78e")]
-position = Vector2(89.0001, 41)
-scale = Vector2(0.8, 0.8)
-
-[node name="trash2" parent="." instance=ExtResource("2_jv78e")]
-position = Vector2(41.0001, 71)
-scale = Vector2(0.8, 0.8)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(175, 155)
 
@@ -972,15 +965,18 @@ scale = Vector2(0.7, 0.7)
 [node name="cacamba4" parent="." instance=ExtResource("9_11iyp")]
 position = Vector2(70, 18)
 scale = Vector2(0.7, 0.7)
+type = 1
 
 [node name="cacamba3" parent="." instance=ExtResource("9_11iyp")]
 position = Vector2(371, 174)
 scale = Vector2(0.7, 0.7)
+type = 2
 
 [node name="cacamba2" parent="." instance=ExtResource("9_11iyp")]
 position = Vector2(68, 218)
 rotation = -3.14041
 scale = Vector2(0.7, 0.7)
+type = 3
 
 [node name="player_chararcter" parent="." instance=ExtResource("1_7hfyj")]
 position = Vector2(175, 155)
@@ -989,4 +985,72 @@ position = Vector2(175, 155)
 remote_path = NodePath("../../Camera2D")
 
 [node name="UI" parent="." instance=ExtResource("10_3dk22")]
-visible = false
+
+[node name="SpawnAreas" type="Node" parent="."]
+
+[node name="ReferenceRect" type="ReferenceRect" parent="SpawnAreas"]
+offset_left = 11.0
+offset_top = 12.0
+offset_right = 291.0
+offset_bottom = 253.0
+
+[node name="ReferenceRect2" type="ReferenceRect" parent="SpawnAreas"]
+offset_left = 356.0
+offset_top = 186.0
+offset_right = 386.0
+offset_bottom = 229.0
+
+[node name="NonSpawnAreas" type="Node" parent="."]
+
+[node name="ReferenceRect" type="ReferenceRect" parent="NonSpawnAreas"]
+offset_left = 54.0
+offset_top = 4.0
+offset_right = 86.0
+offset_bottom = 30.0
+
+[node name="ReferenceRect2" type="ReferenceRect" parent="NonSpawnAreas"]
+offset_left = 211.0
+offset_top = 14.0
+offset_right = 243.0
+offset_bottom = 40.0
+
+[node name="ReferenceRect3" type="ReferenceRect" parent="NonSpawnAreas"]
+offset_left = 52.0
+offset_top = 206.0
+offset_right = 84.0
+offset_bottom = 232.0
+
+[node name="ReferenceRect4" type="ReferenceRect" parent="NonSpawnAreas"]
+offset_left = 198.0
+offset_top = 49.0
+offset_right = 212.0
+offset_bottom = 105.0
+
+[node name="ReferenceRect5" type="ReferenceRect" parent="NonSpawnAreas"]
+offset_left = 242.0
+offset_top = 48.0
+offset_right = 256.0
+offset_bottom = 105.0
+
+[node name="SpawnClock" type="Timer" parent="."]
+wait_time = 3.5
+autostart = true
+
+[node name="DificultyClock" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="CountdownClock" type="Timer" parent="."]
+autostart = true
+
+[connection signal="score_decrease" from="cacamba" to="." method="decrease_score"]
+[connection signal="score_increase" from="cacamba" to="." method="increase_score"]
+[connection signal="score_decrease" from="cacamba4" to="." method="decrease_score"]
+[connection signal="score_increase" from="cacamba4" to="." method="increase_score"]
+[connection signal="score_decrease" from="cacamba3" to="." method="decrease_score"]
+[connection signal="score_increase" from="cacamba3" to="." method="increase_score"]
+[connection signal="score_decrease" from="cacamba2" to="." method="decrease_score"]
+[connection signal="score_increase" from="cacamba2" to="." method="increase_score"]
+[connection signal="timeout" from="SpawnClock" to="." method="_on_spawn_clock_timeout"]
+[connection signal="timeout" from="DificultyClock" to="." method="_on_dificulty_clock_timeout"]
+[connection signal="timeout" from="CountdownClock" to="." method="_on_countdown_clock_timeout"]

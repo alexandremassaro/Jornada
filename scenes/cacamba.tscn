@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://d2mpcytt5rvv8"]
 
-[ext_resource type="Texture2D" uid="uid://lvja837dewv7" path="res://assets/images/sprites/lixo.png" id="1_gi7gp"]
 [ext_resource type="Script" path="res://scripts/cacamba.gd" id="1_nmf15"]
+[ext_resource type="Texture2D" uid="uid://dpt7jgcinakta" path="res://resources/cacamba_metal.tres" id="2_6nbjy"]
 [ext_resource type="PackedScene" uid="uid://c12qxnrourq3n" path="res://scenes/interactive_area.tscn" id="3_hjjcp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_unr8k"]
@@ -72,7 +72,7 @@ input_pickable = true
 script = ExtResource("1_nmf15")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_gi7gp")
+texture = ExtResource("2_6nbjy")
 vframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

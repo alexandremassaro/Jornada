@@ -5,7 +5,8 @@ extends CharacterBody2D
 ##
 
 ## A velocidade que personagem se move pela tela.
-@export var move_speed : float = 50.0
+@export var move_speed : float = 65.0
+@export var boost_speed : float = 100.00
 
 ## A posição que define qual animação será disparada quando a cena for 
 ## carregada pela primeira vez.
@@ -42,16 +43,13 @@ func _physics_process(_delta):
 	move_and_slide()
 
 
-## Pega o primeiro item da lista items_in_range.[br]
-## [color=yellow]Aviso:[/color] Sempre se certifique que a propriedade 'carying'
-## é null antes de chamar esse método, senão ele nunca conseguirá soltar o item.
+## Atualiza o path do item sendo segurado pelo personagem, para fazer o personagem carregar o ítem.
 func pick_up_item(item_path):
 	$PickUpSpot.remote_path = item_path
 
 
-## Solta o item que está sendo carregado.
+## Apaga o path do item sendo segurado pelo personagem para soltar o item que está sendo carregado.
 func drop_item():
-	#carying = null
 	$PickUpSpot.remote_path = ""
 
 ## Atualiza o node AnimationTree para alternar as animações de acordo com a 
@@ -78,3 +76,4 @@ func pick_new_state():
 func change_pick_up_position(pos : Vector2):
 	$PickUpPosition.position = pos * 10
 	$PickUpSpot.position = pos * 10
+

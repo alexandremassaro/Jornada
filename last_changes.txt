@@ -1,6 +1,1 @@
-*  moved UI node to a new scene;
-*  created interactive_area scene and replacing open_close_area on cacamba;
-*  created interaction logic to all player interactions
-*  updated player character, and screen size
-*  updated all collision layers
-*  updated tileset and map
+*  Refactoring trash and cacamba to accept multiple types;
