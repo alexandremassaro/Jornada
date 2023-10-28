@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5a1cl05orol7"]
+
+[ext_resource type="Script" path="res://scripts/player_name_input.gd" id="1_dsnhq"]
+[ext_resource type="Theme" uid="uid://derjom2jih82r" path="res://resources/default_theme.tres" id="1_p8qu5"]
+
+[node name="PlayerNameinput" type="CanvasLayer"]
+script = ExtResource("1_dsnhq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.207843, 0.207843, 0.207843, 0.752941)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_p8qu5")
+
+[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "nos diga seu nome"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="HSeparator" type="HSeparator" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "NOME"
+max_length = 15
+caret_blink = true
+
+[connection signal="text_changed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_submitted" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]

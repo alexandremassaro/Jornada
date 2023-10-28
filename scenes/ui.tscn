@@ -48,6 +48,14 @@ text = "99"
 horizontal_alignment = 1
 vertical_alignment = 2
 
+[node name="GameOverBG" type="Panel" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="GameOverContainer" type="CenterContainer" parent="."]
 visible = false
 anchors_preset = 15
@@ -63,6 +71,68 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="GameOverContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="GameOverContainer/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameOverContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Scoreboard" type="Button" parent="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SCOREBOARD"
+
+[node name="Restart" type="Button" parent="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "RESTART"
+
+[node name="PauseMenuBG" type="Panel" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseMenuContainer" type="CenterContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_lg72o")
+
+[node name="PanelContainer" type="PanelContainer" parent="PauseMenuContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenuContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenuContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PauseMenuContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "PAUSA"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PauseMenuContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Scoreboard" type="Button" parent="PauseMenuContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SCOREBOARD"
+
+[node name="Restart" type="Button" parent="PauseMenuContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "RESTART"
+
+[connection signal="pressed" from="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/Scoreboard" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="GameOverContainer/PanelContainer/MarginContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="PauseMenuContainer/PanelContainer/MarginContainer/VBoxContainer/Scoreboard" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="PauseMenuContainer/PanelContainer/MarginContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]

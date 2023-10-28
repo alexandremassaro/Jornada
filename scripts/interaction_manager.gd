@@ -41,10 +41,13 @@ func _input(event):
 			
 			can_interact = true
 
+
 func _sort_by_distance_to_player(area1, area2):
+	if not player:
+		player = get_tree().get_first_node_in_group("player")
+		
 	var area1_to_player = player.global_position.distance_to(area1.global_position)
 	var area2_to_player = player.global_position.distance_to(area2.global_position)
 	
 	return area1_to_player < area2_to_player
-
 

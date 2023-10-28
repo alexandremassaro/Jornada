@@ -274,3 +274,9 @@ parameters/idle/blend_position = Vector2(0, -1)
 parameters/walk/blend_position = Vector2(0, -1)
 
 [node name="PickUpSpot" type="RemoteTransform2D" parent="."]
+
+[node name="CenouraTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="CenouraTimer" to="." method="_on_cenoura_timer_timeout"]

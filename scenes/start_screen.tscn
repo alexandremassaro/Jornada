@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw8ponclav8s4"]
+
+[ext_resource type="Script" path="res://scripts/start_screen.gd" id="1_m6qk4"]
+[ext_resource type="Texture2D" uid="uid://bqjad2blpgsrb" path="res://assets/images/sprites/start_screen.png" id="1_mhh3n"]
+[ext_resource type="Texture2D" uid="uid://bkwmq8o88cibx" path="res://assets/images/sprites/play_button.png" id="2_xvxc8"]
+
+[node name="StartScreen" type="CanvasLayer"]
+script = ExtResource("1_m6qk4")
+
+[node name="Background" type="TextureRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_mhh3n")
+expand_mode = 2
+
+[node name="StartButton" type="TextureButton" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.9999
+offset_top = -116.0
+offset_right = 927.0
+offset_bottom = 908.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("2_xvxc8")
+stretch_mode = 0
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

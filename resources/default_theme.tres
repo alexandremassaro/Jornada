@@ -1,7 +1,30 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://derjom2jih82r"]
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://derjom2jih82r"]
 
 [ext_resource type="Texture2D" uid="uid://if4pv0lidrr5" path="res://assets/images/sprites/menu_bg.png" id="1_muytm"]
 [ext_resource type="FontFile" uid="uid://bqnrxuu7neskc" path="res://assets/fonts/press_start_2p/PressStart2P-Regular.ttf" id="1_qcerf"]
+[ext_resource type="FontFile" uid="uid://dlxeo01ilvogu" path="res://resources/default_font.tres" id="2_ii530"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7e0as"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ghl12"]
+bg_color = Color(0, 0, 0, 0.592157)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6l7p0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7mjb5"]
+bg_color = Color(0, 0, 0, 0.592157)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mkhhe"]
 texture = ExtResource("1_muytm")
@@ -11,8 +34,19 @@ texture_margin_right = 4.0
 texture_margin_bottom = 6.0
 
 [resource]
-Label/font_sizes/font_size = 12
-Label/fonts/font = ExtResource("1_qcerf")
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(0.74902, 0.74902, 0.74902, 1)
+Button/colors/font_pressed_color = Color(0.419608, 0.419608, 0.419608, 1)
+Button/font_sizes/font_size = 24
+Button/fonts/font = ExtResource("1_qcerf")
+Button/styles/focus = SubResource("StyleBoxTexture_7e0as")
+Button/styles/hover = SubResource("StyleBoxFlat_ghl12")
+Button/styles/normal = SubResource("StyleBoxTexture_6l7p0")
+Button/styles/pressed = SubResource("StyleBoxFlat_7mjb5")
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("2_ii530")
+LineEdit/font_sizes/font_size = 24
+LineEdit/fonts/font = ExtResource("2_ii530")
 MarginContainer/constants/margin_left = 5
 MarginContainer/constants/margin_right = 5
 MarginContainer/constants/margin_top = 5

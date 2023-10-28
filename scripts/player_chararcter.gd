@@ -20,6 +20,10 @@ extends CharacterBody2D
 ## Uma referência ao state machine que define a animação 
 ## que está sendo tocada pelo AnimationTree.
 @onready var state_machine = animation_tree["parameters/playback"]
+@onready var cenoura_timer = $CenouraTimer
+
+
+var is_cenoura_on = false
 
 
 func _ready():
@@ -38,6 +42,9 @@ func _physics_process(_delta):
 		update_animation_parameters(input_direction)
 		change_pick_up_position(input_direction)
 		velocity = input_direction * move_speed
+	
+	if is_cenoura_on:
+		velocity *= 2
 	
 	pick_new_state()
 	move_and_slide()
@@ -77,3 +84,15 @@ func change_pick_up_position(pos : Vector2):
 	$PickUpPosition.position = pos * 10
 	$PickUpSpot.position = pos * 10
 
+
+func cenoura_start():
+	is_cenoura_on = true
+	cenoura_timer.start()
+
+
+func cenoura_stop():
+	is_cenoura_on = false
+
+
+func _on_cenoura_timer_timeout():
+	cenoura_stop()

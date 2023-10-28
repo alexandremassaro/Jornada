@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://uyq3d3p7kvxh"]
+
+[ext_resource type="Script" path="res://scripts/scoreboard.gd" id="1_lmhxs"]
+[ext_resource type="Theme" uid="uid://7w4sea6d34jc" path="res://resources/scorebopard_theme.tres" id="1_x54l8"]
+
+[node name="Scoreboard" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_lmhxs")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("1_x54l8")
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScoreBox" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/ScoreBox"]
+layout_mode = 2
+text = "SCOREBOARD"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer/PanelContainer/MarginContainer/ScoreBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Entries" type="GridContainer" parent="MarginContainer/PanelContainer/MarginContainer/ScoreBox/CenterContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 3
+
+[node name="Label2" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/ScoreBox"]
+layout_mode = 2
+text = "PRESSIONE [ESC] PARA SAIR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
