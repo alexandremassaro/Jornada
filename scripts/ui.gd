@@ -12,16 +12,6 @@ extends CanvasLayer
 var scoreboard_scene = preload("res://scenes/scoreboard.tscn")
 
 
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		if not get_tree().paused:
-			show_pause_menu()
-			get_tree().paused = true
-		else:
-			hide_pause_menu()
-			get_tree().paused = false
-
-
 func _on_button_pressed():
 	var scoreboard = scoreboard_scene.instantiate()
 	var current_scene = get_current_scene()
@@ -34,7 +24,14 @@ func _on_restart_pressed():
 	var current_scene = get_current_scene()
 	get_tree().current_scene = current_scene
 	get_tree().reload_current_scene()
-	get_tree().paused = false
+
+
+func pause_game():
+	show_pause_menu()
+
+
+func unpause_game():
+	hide_pause_menu()
 
 
 func show_game_over():

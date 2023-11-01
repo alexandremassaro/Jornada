@@ -9,14 +9,107 @@ const GAME_VERSION = "0.0.0.1"
 
 var development_mode = true
 var session_token = ""
-var player_id = "Juvenal_pega"
+var player_id = ""
 var message = ""
 var score_list = []
+var form1_status = false
+var form2_status = false
+var finished_form_request = false
 
 
 func request_message(msg):
 	message = msg
 	print(message)
+
+
+func get_all_key_value_pairs():
+	finished_form_request = false
+	#var url = API_DOMAIN + "v1/asset/instance/626974/storage"
+	var url = API_DOMAIN + "v1/player/storage"
+	
+	var header = ["x-session-token: %s" % session_token]
+	var method = HTTPClient.METHOD_GET
+	
+	request_message("Solicitando")
+	
+	var get_http = HTTPRequest.new()
+	add_child(get_http)
+	
+	get_http.request(url, header, method)
+	
+	var response = await get_http.request_completed
+	
+	if response[1] == 200:
+		get_http.queue_free()
+		
+		var json = JSON.new()
+		var error = json.parse(response[3].get_string_from_utf8())
+		
+		if error == OK:
+			var data_received = json.data
+			
+			if "payload" in data_received:
+				print(data_received)
+				if data_received["payload"].size() > 0:
+					for item in data_received["payload"]:
+						if item["key"] == "form1":
+							form1_status = true
+						if item["key"] == "form2":
+							form2_status = true
+				finished_form_request = true
+				return
+		else:
+			print("JSON Parse Error: ", json.get_error_message(), " in ", response, " at line ", json.get_error_line())
+	else:
+		print(response[1])
+	
+	request_message("Falha")
+	finished_form_request = true
+
+
+func create_key_value_pair():
+	var url = API_DOMAIN + "v1/player/storage"
+	var header = ["Content-Type: application/json", "x-session-token: %s" % session_token]
+	var method = HTTPClient.METHOD_POST
+	var request_body = {
+		"payload" : [
+			{
+				"key" : "form1",
+				"value" : "",
+				"order" : 1
+			},
+			{
+				"key" : "form2",
+				"value" : "",
+				"order" : 2
+			}
+		]
+	}
+	
+	request_message("Enviando")
+	
+	var create_http = HTTPRequest.new()
+	add_child(create_http)
+	
+	create_http.request(url, header, method, JSON.stringify(request_body))
+	
+	var response = await create_http.request_completed
+	print(response[3].get_string_from_utf8())
+	
+	if response[1] == 200:
+		create_http.queue_free()
+		
+		var json = JSON.new()
+		var error = json.parse(response[3].get_string_from_utf8())
+		if error == OK:
+			request_message("Sucesso")
+			return
+		else:
+			print("JSON Parse Error: ", json.get_error_message(), " in ", response, " at line ", json.get_error_line())
+	else:
+		print(response[1])
+	
+	request_message("Falha")
 
 
 func authenticate_guest(user_id):
@@ -53,6 +146,7 @@ func authenticate_guest(user_id):
 				session_token = data_received["session_token"]
 				request_message("Sucesso")
 				player_id = user_id
+				get_all_key_value_pairs()
 				return
 		else:
 			print("JSON Parse Error: ", json.get_error_message(), " in ", response, " at line ", json.get_error_line())

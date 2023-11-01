@@ -24,6 +24,7 @@ extends CharacterBody2D
 
 
 var is_cenoura_on = false
+var is_paused = false
 
 
 func _ready():
@@ -31,6 +32,9 @@ func _ready():
 
 
 func _physics_process(_delta):
+	if is_paused:
+		return
+	
 	velocity = Vector2.ZERO
 	
 	var input_direction = Vector2(
@@ -48,6 +52,16 @@ func _physics_process(_delta):
 	
 	pick_new_state()
 	move_and_slide()
+
+
+func pause_game():
+	is_paused = true
+	cenoura_timer.stop()
+
+
+func unpause_game():
+	is_paused = false
+	cenoura_timer.start()
 
 
 ## Atualiza o path do item sendo segurado pelo personagem, para fazer o personagem carregar o ítem.

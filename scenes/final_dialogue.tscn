@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5a1cl05orol7"]
+[gd_scene load_steps=4 format=3 uid="uid://cbwghbcukyham"]
 
-[ext_resource type="Script" path="res://scripts/player_name_input.gd" id="1_dsnhq"]
-[ext_resource type="Theme" uid="uid://derjom2jih82r" path="res://resources/default_theme.tres" id="1_p8qu5"]
-[ext_resource type="Texture2D" uid="uid://dwsiys6dhnc77" path="res://assets/images/sprites/benicio.png" id="3_2xpqe"]
+[ext_resource type="Theme" uid="uid://derjom2jih82r" path="res://resources/default_theme.tres" id="1_0k6qf"]
+[ext_resource type="Script" path="res://scripts/final_dialogue.gd" id="1_l7jhh"]
+[ext_resource type="Texture2D" uid="uid://dwsiys6dhnc77" path="res://assets/images/sprites/benicio.png" id="2_kblyd"]
 
-[node name="PlayerNameinput" type="CanvasLayer"]
-script = ExtResource("1_dsnhq")
+[node name="FinalDialogue" type="CanvasLayer"]
+script = ExtResource("1_l7jhh")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -21,7 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_p8qu5")
+theme = ExtResource("1_0k6qf")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
@@ -55,7 +55,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("3_2xpqe")
+texture = ExtResource("2_kblyd")
 
 [node name="DialogueLabel" type="Label" parent="CenterContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -77,15 +77,7 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 1
-text = "Ah, antes de começarmos 
-nossa aventura, você pode 
-responder a um 
-formulário rápido? Isso vai 
-me ajudar a entender 
-como posso melhorar e 
-tornar nossa jornada 
-ainda mais incrível! Muito 
-obrigado, [Nome do Jogador]!"
+text = "c"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
@@ -93,16 +85,8 @@ uppercase = true
 [node name="PanelContainer2" type="PanelContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="CenterContainer/VBoxContainer/PanelContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-placeholder_text = "NOME"
-max_length = 15
-caret_blink = true
-
 [node name="DialogueCommands" type="CenterContainer" parent="CenterContainer/VBoxContainer/PanelContainer2"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 focus_mode = 2
 
@@ -126,6 +110,3 @@ layout_mode = 2
 text = "APERTE [ESC] PARA PULAR INSTRUÇÕES"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[connection signal="text_changed" from="CenterContainer/VBoxContainer/PanelContainer2/LineEdit" to="." method="_on_line_edit_text_changed"]
-[connection signal="text_submitted" from="CenterContainer/VBoxContainer/PanelContainer2/LineEdit" to="." method="_on_line_edit_text_submitted"]

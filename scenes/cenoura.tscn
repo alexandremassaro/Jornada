@@ -64,6 +64,7 @@ collision_layer = 4
 shape = SubResource("CapsuleShape2D_kgl5y")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true
 autostart = true
 

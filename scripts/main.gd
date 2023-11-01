@@ -16,6 +16,8 @@ const CENOURA_SPAWN_RATE = 0.00035
 
 var score = 0
 var is_new_record = false
+var is_paused = false
+var is_game_over = false
 
 
 func _ready():
@@ -27,6 +29,9 @@ func _ready():
 
 
 func _process(_delta):
+	if is_paused:
+		return
+	
 	if randf() < CENOURA_SPAWN_RATE:
 		spawn_cenoura()
 	
@@ -40,6 +45,16 @@ func _process(_delta):
 	countdown_clock_label.text = str(countdown_clock.wait_time)
 
 
+func _input(event):
+	if is_game_over:
+		return
+		
+	if event.is_action_pressed("ui_cancel"):
+		if is_paused:
+			unpause_game()
+		else:
+			pause_game()
+
 
 func _on_spawn_clock_timeout():
 	spawn_trash()
@@ -51,6 +66,23 @@ func _on_countdown_clock_timeout():
 
 func _on_time_played_clock_timeout():
 	Global.increase_time_played()
+
+
+func pause_game():
+	is_paused = true
+	spawn_clock.stop()
+	countdown_clock.stop()
+	player_chararcter.pause_game()
+	if not is_game_over:
+		ui.pause_game()
+
+
+func unpause_game():
+	is_paused = false
+	spawn_clock.start()
+	countdown_clock.start()
+	ui.unpause_game()
+	player_chararcter.unpause_game()
 
 
 func spawn_trash ():
@@ -128,20 +160,28 @@ func decrease_score():
 func countdown():
 	countdown_timer -= 1
 	update_ui()
+	if countdown_timer <= 0:
+		game_over()
 
 
 func update_ui():	
 	ui.update_score(str(score))
 	ui.update_timer(str(countdown_timer))
-	if countdown_timer <= 0:
-		game_over()
 
 
 func game_over():
-	ui.show_game_over()
+	is_game_over = true
+	pause_game()
 	print(is_new_record)
 	if is_new_record:
 		LootLocker.submit_highscore(Global.record_score)
 		is_new_record = false
-	get_tree().paused = true
+		
+	var final_dialogue_scene = preload("res://scenes/final_dialogue.tscn")
+	
+	var final_dialogue_screen = final_dialogue_scene.instantiate()
+	
+	final_dialogue_screen.ui_screen = ui
+	
+	get_tree().root.add_child(final_dialogue_screen)
 
